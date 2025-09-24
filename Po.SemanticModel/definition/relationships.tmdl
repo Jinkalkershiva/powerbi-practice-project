@@ -1,0 +1,17 @@
+relationship e962c966-15f8-4275-9a04-aa4279aec43d
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Orders Data'.orderDate
+	toColumn: LocalDateTable_e11385d4-49ad-485f-9548-580fdace34ae.Date
+
+relationship 438f30c7-5a0b-208e-db89-258585826380
+	fromColumn: 'Orders Data'.customer_id
+	toColumn: 'Customer Details'.customer_id
+
+relationship ed6b111a-9e99-5721-dcb1-b3f0129d9d88
+	fromColumn: 'Orders Data'.Resturant_ID
+	toColumn: Resturant_Details.Resturant_Code
+
+relationship 0965db5d-6e2d-7c61-0c23-38ff77d45082
+	fromColumn: 'Orders Data'.Fooditem
+	toColumn: 'Table 1 (Food_Details)'.ItemCode
+

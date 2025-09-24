@@ -1,0 +1,110 @@
+table 'Orders Data'
+	lineageTag: 0ffda628-1044-4f69-abbb-9cadd80845ef
+
+	column 'Month & Year'
+		dataType: string
+		lineageTag: 845279f5-3c29-46d2-a972-5c4f4e8f240b
+		summarizeBy: none
+		sourceColumn: Month & Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		lineageTag: ae9939d5-ead4-4d17-be11-d7f1fa23269c
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column orderDate
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 844f2b14-30fe-45e9-8a58-9a1aedf276cf
+		summarizeBy: none
+		sourceColumn: orderDate
+
+		variation Variation
+			isDefault
+			relationship: e962c966-15f8-4275-9a04-aa4279aec43d
+			defaultHierarchy: LocalDateTable_e11385d4-49ad-485f-9548-580fdace34ae.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: fe8c2078-f0bf-4483-9c4a-7f387d2bbbae
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column Resturant_ID
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c3f1820-cbec-4f23-8456-41b6aba50e7f
+		summarizeBy: none
+		sourceColumn: Resturant_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fooditem
+		dataType: int64
+		formatString: 0
+		lineageTag: 673e9ce6-f74c-47cb-bf96-9d8ab7577093
+		summarizeBy: none
+		sourceColumn: Fooditem
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 28d06aec-8385-4372-9a75-5a9173e1142a
+		summarizeBy: sum
+		sourceColumn: quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column deliver_status
+		dataType: string
+		lineageTag: 3a8b2165-1196-4371-b1f5-e1b8c652368c
+		summarizeBy: none
+		sourceColumn: deliver_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_method
+		dataType: string
+		lineageTag: 86600cec-fb8f-471a-a098-a66cbb755f37
+		summarizeBy: none
+		sourceColumn: payment_method
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Orders Data' = m
+		mode: import
+		source =
+				let
+				    Source = Folder.Files("C:\Users\jinka\OneDrive\Desktop\pow_bi\Orders Data"),
+				    #"Removed Other Columns" = Table.SelectColumns(Source,{"Content"}),
+				    #"Added Custom" = Table.AddColumn(#"Removed Other Columns", "Table", each Excel.Workbook([Content])),
+				    #"Removed Columns" = Table.RemoveColumns(#"Added Custom",{"Content"}),
+				    #"Expanded Table" = Table.ExpandTableColumn(#"Removed Columns", "Table", {"Name", "Data", "Item", "Kind", "Hidden"}, {"Table.Name", "Table.Data", "Table.Item", "Table.Kind", "Table.Hidden"}),
+				    #"Removed Columns1" = Table.RemoveColumns(#"Expanded Table",{"Table.Item", "Table.Kind", "Table.Hidden"}),
+				    #"Expanded Table.Data" = Table.ExpandTableColumn(#"Removed Columns1", "Table.Data", {"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8"}, {"Table.Data.Column1", "Table.Data.Column2", "Table.Data.Column3", "Table.Data.Column4", "Table.Data.Column5", "Table.Data.Column6", "Table.Data.Column7", "Table.Data.Column8"}),
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Expanded Table.Data", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"April_Sales_2023", type text}, {"order_id", Int64.Type}, {"orderDate", type date}, {"customer_id", Int64.Type}, {"Resturant_ID", Int64.Type}, {"Fooditem", Int64.Type}, {"quantity", Int64.Type}, {"deliver_status", type text}, {"payment_method", type text}}),
+				    #"Removed Errors" = Table.RemoveRowsWithErrors(#"Changed Type", {"orderDate"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Removed Errors",{{"April_Sales_2023", "Month & Year"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

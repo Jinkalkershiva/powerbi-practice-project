@@ -1,0 +1,74 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 404.51789289577692,
+        "y": 191.04725280648253
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 559.36815399324212,
+            "y": 172.47468443401397
+          },
+          "nodeIndex": "Customer Details",
+          "nodeLineageTag": "3aa1846c-b5de-42b6-9bc1-7bf033d12972",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 953.10435086845951,
+            "y": 461.47863633506222
+          },
+          "nodeIndex": "Orders Data",
+          "nodeLineageTag": "0ffda628-1044-4f69-abbb-9cadd80845ef",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1355.2745872298992,
+            "y": 180.4155688048169
+          },
+          "nodeIndex": "Resturant_Details",
+          "nodeLineageTag": "0019fc88-a16b-449d-8c5e-f8a64b12efa0",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 953.10435086845951,
+            "y": 172.61373266674212
+          },
+          "nodeIndex": "Table 1 (Food_Details)",
+          "nodeLineageTag": "d140c3a7-4eea-4025-b898-e3252d6a1337",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 89.192590520570121,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

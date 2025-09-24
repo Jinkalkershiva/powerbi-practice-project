@@ -1,0 +1,49 @@
+table Resturant_Details
+	lineageTag: 0019fc88-a16b-449d-8c5e-f8a64b12efa0
+
+	column Resturant_Code
+		dataType: int64
+		formatString: 0
+		lineageTag: 85868190-910b-4865-9356-9d6fb48c7767
+		summarizeBy: none
+		sourceColumn: Resturant_Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Resturant_Name
+		dataType: string
+		lineageTag: d8807f5a-b19c-4ac5-9f9a-2185f3ecd050
+		summarizeBy: none
+		sourceColumn: Resturant_Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Resturant_type
+		dataType: string
+		lineageTag: 04f9b5b5-4d4b-4052-a4c8-ef1cfc60da64
+		summarizeBy: none
+		sourceColumn: Resturant_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Column4
+		dataType: string
+		lineageTag: 74b50d37-79e0-4e99-aafb-9e2c4e9aa763
+		summarizeBy: none
+		sourceColumn: Column4
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Resturant_Details = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\jinka\OneDrive\Desktop\pow_bi\Learn Power BI in 7 Hours  Full Beginner to Advanced Course with Dashboard Project_2025\Day - 1 to Day - 10 - Other_Data PBI Pract Satish.xlsx"), null, true),
+				    Resturant_Details_Sheet = Source{[Item="Resturant_Details",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(Resturant_Details_Sheet, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Resturant_Code", Int64.Type}, {"Resturant_Name", type text}, {"Resturant_type", type text}, {"Column4", type any}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+

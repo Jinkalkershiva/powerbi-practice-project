@@ -1,0 +1,46 @@
+table 'Customer Details'
+	lineageTag: 3aa1846c-b5de-42b6-9bc1-7bf033d12972
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 43d06b9d-86c1-4587-8375-74cfedf39587
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: 5970c165-959f-4844-8447-61d175d8e845
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column member_Type
+		dataType: string
+		lineageTag: cc62285f-fb19-4455-824f-d2daeee9691a
+		summarizeBy: none
+		sourceColumn: member_Type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Customer Details' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\jinka\OneDrive\Desktop\pow_bi\Learn Power BI in 7 Hours  Full Beginner to Advanced Course with Dashboard Project_2025\Day - 1 to Day - 10 - Other_Data PBI Pract Satish.xlsx"), null, true),
+				    #"Customer Details_Sheet" = Source{[Item="Customer Details",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Customer Details_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"customer_id", Int64.Type}, {"customer_name", type text}, {"member_Type", type text}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Changed Type", each true),
+				    #"Replaced Value" = Table.ReplaceValue(#"Filtered Rows","R","Regular",Replacer.ReplaceValue,{"member_Type"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value","G","Gold",Replacer.ReplaceValue,{"member_Type"})
+				in
+				    #"Replaced Value1"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
